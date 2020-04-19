@@ -18,7 +18,6 @@ const AuthorHero: React.FC<AuthorHeroProps> = ({ author }) => {
       <HeroImage>
         <RoundedImage src={author.avatar.large} />
       </HeroImage>
-      <Heading>{author.name}</Heading>
       <Subheading>{author.bio}</Subheading>
       <Social>
         <SocialLinks links={author.social} />

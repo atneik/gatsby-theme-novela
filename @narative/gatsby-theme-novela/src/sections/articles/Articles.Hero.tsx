@@ -91,10 +91,6 @@ const SubheadingContainer = styled.div`
   ${mediaqueries.tablet`
     margin-bottom: 60px;
   `};
-
-  ${mediaqueries.phablet`
-    display: none;
-  `};
 `;
 
 const GridControlsContainer = styled.div`
