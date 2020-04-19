@@ -46,7 +46,7 @@ const Footer: React.FC<{}> = () => {
     const years = [0, edges.length - 1].map((edge) =>
       new Date(edges[edge].node.frontmatter.date).getFullYear()
     );
-    return years[0] === years[1] ? `${years[0]}` : `${years[0]}–${years[1]}`;
+    return years[0] === years[1] ? `${years[0]}` : `${years[0]} – ${years[1]}`;
   })();
 
   return (
@@ -56,7 +56,7 @@ const Footer: React.FC<{}> = () => {
         <HoritzontalRule />
         <FooterContainer>
           <FooterText>
-            © {copyrightDate} {name}
+            © {copyrightDate}  ·  {name}
           </FooterText>
           <div>
             <SocialLinks links={social} />
@@ -102,6 +102,7 @@ const HoritzontalRule = styled.div`
 `;
 
 const FooterText = styled.div`
+  font-size: 14px;
   ${mediaqueries.tablet`
     margin-bottom: 80px;
   `}

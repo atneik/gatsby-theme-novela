@@ -16,10 +16,9 @@ interface ArticleHeroProps {
 
 const ArticleHero: React.FC<ArticleHeroProps> = ({ article, authors }) => {
   const hasCoAUthors = authors.length > 1;
-  const hasHeroImage =
-    article.hero &&
-    Object.keys(article.hero.full).length !== 0 &&
-    article.hero.full.constructor === Object;
+  const showHeroImage =
+    article.tags &&
+    article.tags.length !== 0
 
   return (
     <Hero>
@@ -32,13 +31,11 @@ const ArticleHero: React.FC<ArticleHeroProps> = ({ article, authors }) => {
           </ArticleMeta>
         </HeroSubtitle>
       </Header>
-      <HeroImage id="ArticleImage__Hero">
-        {hasHeroImage ? (
-          <Image src={article.hero.full} />
-        ) : (
-          <ImagePlaceholder />
-        )}
-      </HeroImage>
+      <HeroTags id="ArticleTags__Hero">
+        {showHeroImage && 
+           article.tags 
+        }
+      </HeroTags>
     </Hero>
   );
 };
@@ -161,27 +158,31 @@ const HeroSubtitle = styled.div<{ hasCoAUthors: boolean }>`
   `}
 `;
 
-const HeroImage = styled.div`
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  max-width: 944px;
-  overflow: hidden;
-  margin: 0 auto;
-  box-shadow: 0 30px 60px -10px rgba(0, 0, 0, 0.2),
-    0 18px 36px -18px rgba(0, 0, 0, 0.22);
+const HeroTags = styled.header`
+position: relative;
+z-index: 10;
+margin: 0 auto;
+padding-left: 68px;
+max-width: 749px;
 
-  ${mediaqueries.tablet`
-    max-width: 100%;
-  `}
-
-  ${mediaqueries.phablet`
-    margin: 0 auto;
-    width: calc(100vw - 40px);
-    height: 220px;
-
-    & > div {
-      height: 220px;
-    }
+${mediaqueries.desktop`
+  padding-left: 53px;
+  max-width: calc(507px + 53px);
+  margin: 100px auto 70px;
 `}
+
+${mediaqueries.tablet`
+  padding-left: 0;
+  margin: 100px auto 70px;
+  max-width: 480px;
+`}
+
+${mediaqueries.phablet`
+  margin: 170px auto 180px;
+  padding: 0 40px;
+`}
+
+@media screen and (max-height: 700px) {
+  margin: 100px auto;
+}
 `;

@@ -32,6 +32,7 @@ module.exports.local = {
           canonical_url
           subscription
           body
+          tags
           hero {
             full: childImageSharp {
               fluid(maxWidth: 944, quality: 100) {

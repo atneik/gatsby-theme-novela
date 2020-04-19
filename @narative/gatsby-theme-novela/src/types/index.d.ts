@@ -51,6 +51,7 @@ export interface IArticle {
   };
   timeToRead: number;
   date: string;
+  tags: string[];
 }
 
 interface IArticleQuery {
