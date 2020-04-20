@@ -11,7 +11,10 @@ const createPaginatedPages = require('gatsby-paginate');
 const templatesDirectory = path.resolve(__dirname, '../../templates');
 const templates = {
   articles: path.resolve(templatesDirectory, 'articles.template.tsx'),
-  articlesCategory: path.resolve(templatesDirectory, 'articles-category.template.tsx'),
+  articlesCategory: path.resolve(
+    templatesDirectory,
+    'articles-category.template.tsx',
+  ),
   article: path.resolve(templatesDirectory, 'article.template.tsx'),
   author: path.resolve(templatesDirectory, 'author.template.tsx'),
 };
@@ -178,13 +181,17 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
   });
 
   log('Creating', 'articles category page');
-  let categories = [...new Set(articlesThatArentSecret.map((article) => article.category ))];
+  let categories = [
+    ...new Set(articlesThatArentSecret.map(article => article.category)),
+  ];
   console.log(categories);
 
-  categories.forEach((category) => {
+  categories.forEach(category => {
     createPaginatedPages({
-      edges: articlesThatArentSecret.filter((article) => article.category === category),
-      pathPrefix: 'category/' + category,
+      edges: articlesThatArentSecret.filter(
+        article => article.category === category,
+      ),
+      pathPrefix: `category/${category}`,
       createPage,
       pageLength,
       pageTemplate: templates.articlesCategory,
@@ -194,7 +201,7 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
         basePath,
         skip: pageLength,
         limit: pageLength,
-        category
+        category,
       },
     });
   });
@@ -251,7 +258,7 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
         canonicalUrl: article.canonical_url,
         mailchimp,
         next,
-        category: article.category
+        category: article.category,
       },
     });
   });
