@@ -134,7 +134,7 @@ const NavigationHeader: React.FC<{}> = () => {
             </button>
           ) : (
             <>
-              <SharePageButton />
+              {/* <SharePageButton /> */}
               <DarkModeToggle />
             </>
           )}

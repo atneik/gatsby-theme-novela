@@ -26,7 +26,7 @@ const authorQuery = graphql`
 `;
 
 const ArticlesCategoryHero: React.FC<String> = ({ category }) => {
-  const { gridLayout = 'tiles', hasSetGridLayout, setGridLayout } = useContext(
+  const { gridLayout = 'rows', hasSetGridLayout, setGridLayout } = useContext(
     GridLayoutContext,
   );
 
@@ -41,7 +41,7 @@ const ArticlesCategoryHero: React.FC<String> = ({ category }) => {
       </HeadingContainer>
       <SubheadingContainer>
         <div />
-        <GridControlsContainer>
+        {/* <GridControlsContainer>
           <GridButton
             onClick={() => setGridLayout('tiles')}
             active={tilesIsActive}
@@ -60,7 +60,7 @@ const ArticlesCategoryHero: React.FC<String> = ({ category }) => {
           >
             <Icons.Rows />
           </GridButton>
-        </GridControlsContainer>
+        </GridControlsContainer> */}
       </SubheadingContainer>
     </Section>
   );

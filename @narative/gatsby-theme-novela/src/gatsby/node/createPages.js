@@ -156,6 +156,20 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
   `);
   }
 
+  // Categories
+
+  let categories = [
+    ...new Set(articlesThatArentSecret.map(article => article.category)),
+  ];
+  log('Categories found: ', categories.join(', '));
+
+  let categoriesObject = categories.reduce((object, category) => {
+    return { ...object, [category]: [] };
+  }, {});
+  articlesThatArentSecret.forEach(article =>
+    categoriesObject[article.category].push(article),
+  );
+
   /**
    * Once we've queried all our data sources and normalized them to the same structure
    * we can begin creating our pages. First, we'll want to create all main articles pages
@@ -164,28 +178,26 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
    * /articles/page/1
    * ...
    */
+
   log('Creating', 'articles page');
   createPaginatedPages({
     edges: articlesThatArentSecret,
     pathPrefix: basePath,
     createPage,
-    pageLength,
+    pageLength: pageLength * 1000,
     pageTemplate: templates.articles,
     buildPath: buildPaginatedPath,
     context: {
       authors,
       basePath,
-      skip: pageLength,
-      limit: pageLength,
+      categories,
+      categoriesObject,
+      skip: pageLength * 1000,
+      limit: pageLength * 1000,
     },
   });
 
   log('Creating', 'articles category page');
-  let categories = [
-    ...new Set(articlesThatArentSecret.map(article => article.category)),
-  ];
-  console.log(categories);
-
   categories.forEach(category => {
     createPaginatedPages({
       edges: articlesThatArentSecret.filter(

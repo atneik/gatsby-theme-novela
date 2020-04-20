@@ -23,17 +23,19 @@ const ArticleHero: React.FC<ArticleHeroProps> = ({ article, authors }) => {
   return (
     <Hero>
       <Header>
+        <Category>{ article.category }</Category>
         <HeroHeading>{article.title}</HeroHeading>
         <HeroSubtitle hasCoAUthors={hasCoAUthors}>
           <ArticleAuthors authors={authors} />
           <ArticleMeta hasCoAUthors={hasCoAUthors}>
-            {article.date} · {article.timeToRead} min read
+            {article.date}
+            {/* {article.date} · {article.timeToRead} min read */}
           </ArticleMeta>
         </HeroSubtitle>
+        <HeroTags id="ArticleTags__Hero">
+            { showHeroTags && article.tags.join(' / ') }
+        </HeroTags>
       </Header>
-      <HeroTags id="ArticleTags__Hero">
-        { showHeroTags && article.tags }
-      </HeroTags>
     </Hero>
   );
 };
@@ -79,24 +81,24 @@ const ArticleMeta = styled.div<{ hasCoAUthors: boolean }>`
 const Header = styled.header`
   position: relative;
   z-index: 10;
-  margin:100px auto 120px;
+  margin:100px auto 0px;
   padding-left: 68px;
   max-width: 749px;
 
   ${mediaqueries.desktop`
     padding-left: 53px;
     max-width: calc(507px + 53px);
-    margin: 100px auto 70px;
+    margin: 100px auto 0px;
   `}
 
   ${mediaqueries.tablet`
     padding-left: 0;
-    margin: 100px auto 70px;
+    margin: 100px auto 0px;
     max-width: 480px;
   `}
 
   ${mediaqueries.phablet`
-    margin: 170px auto 180px;
+    margin: 170px auto 0px;
     padding: 0 40px;
   `}
 
@@ -156,31 +158,34 @@ const HeroSubtitle = styled.div<{ hasCoAUthors: boolean }>`
   `}
 `;
 
-const HeroTags = styled.header`
+const HeroTags = styled.div`
 position: relative;
-z-index: 10;
+color: ${p => p.theme.colors.grey};
 margin: 0 auto;
-padding-left: 68px;
+padding-top: 25px;
 max-width: 749px;
+`;
 
-${mediaqueries.desktop`
-  padding-left: 53px;
-  max-width: calc(507px + 53px);
-  margin: 100px auto 70px;
-`}
+const Category = styled(Headings.h2)`
+  font-family: ${p => p.theme.fonts.serif};
+  opacity: 0.2;
+  margin-top: 120px;
+  margin-bottom: 60px;
+  transition: color 0.3s ease-in-out;
 
-${mediaqueries.tablet`
-  padding-left: 0;
-  margin: 100px auto 70px;
-  max-width: 480px;
-`}
+  ${mediaqueries.desktop`
+    margin-top: 60px;
+    margin-bottom: 30px;
+  `}
 
-${mediaqueries.phablet`
-  margin: 170px auto 180px;
-  padding: 0 40px;
-`}
+  ${mediaqueries.tablet`
+    font-size: 24px;  
+  `}
 
-@media screen and (max-height: 700px) {
-  margin: 100px auto;
-}
+  ${mediaqueries.phablet`
+    font-size: 22px;  
+    margin-top: 30px;
+    margin-bottom: 15px;
+    -webkit-line-clamp: 3;
+  `}
 `;

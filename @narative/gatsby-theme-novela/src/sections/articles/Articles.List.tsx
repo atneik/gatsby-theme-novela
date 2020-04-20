@@ -42,7 +42,7 @@ const ArticlesList: React.FC<ArticlesListProps> = ({
   if (!articles) return null;
 
   const hasOnlyOneArticle = articles.length === 1;
-  const { gridLayout = 'tiles', hasSetGridLayout, getGridLayout } = useContext(
+  const { gridLayout = 'rows', hasSetGridLayout, getGridLayout } = useContext(
     GridLayoutContext,
   );
 
@@ -115,11 +115,16 @@ const ListItem: React.FC<ArticlesListItemProps> = ({ article, narrow }) => {
           >
             {article.excerpt}
           </Excerpt>
+          <Excerpt
+            narrow={narrow}
+            hasOverflow={hasOverflow}
+            gridLayout={gridLayout}
+          >
+            {article.tags.join(' / ')}
+          </Excerpt>
           <MetaData>
-            {article.date} · {article.timeToRead} min read
-          </MetaData>
-          <MetaData>
-            {article.tags}
+            {article.date}
+            {/* {article.date} · {article.timeToRead} min read */}
           </MetaData>
         </div>
       </Item>
