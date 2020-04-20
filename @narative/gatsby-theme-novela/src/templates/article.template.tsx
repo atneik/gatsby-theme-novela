@@ -44,7 +44,7 @@ const Article: Template = ({ pageContext, location }) => {
   const results = useStaticQuery(siteQuery);
   const name = results.allSite.edges[0].node.siteMetadata.name;
 
-  const { article, authors, mailchimp, next } = pageContext;
+  const { article, authors, mailchimp, next, category } = pageContext;
 
   useEffect(() => {
     const calculateBodySize = throttle(() => {
@@ -84,6 +84,7 @@ const Article: Template = ({ pageContext, location }) => {
     <Layout>
       <ArticleSEO article={article} authors={authors} location={location} />
       <ArticleHero article={article} authors={authors} />
+      { category }
       <ArticleAside contentHeight={contentHeight}>
         <Progress contentHeight={contentHeight} />
       </ArticleAside>

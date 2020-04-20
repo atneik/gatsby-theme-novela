@@ -11,6 +11,7 @@ const createPaginatedPages = require('gatsby-paginate');
 const templatesDirectory = path.resolve(__dirname, '../../templates');
 const templates = {
   articles: path.resolve(templatesDirectory, 'articles.template.tsx'),
+  articlesCategory: path.resolve(templatesDirectory, 'articles-category.template.tsx'),
   article: path.resolve(templatesDirectory, 'article.template.tsx'),
   author: path.resolve(templatesDirectory, 'author.template.tsx'),
 };
@@ -176,6 +177,28 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
     },
   });
 
+  log('Creating', 'articles category page');
+  let categories = [...new Set(articlesThatArentSecret.map((article) => article.category ))];
+  console.log(categories);
+
+  categories.forEach((category) => {
+    createPaginatedPages({
+      edges: articlesThatArentSecret.filter((article) => article.category === category),
+      pathPrefix: 'category/' + category,
+      createPage,
+      pageLength,
+      pageTemplate: templates.articlesCategory,
+      buildPath: buildPaginatedPath,
+      context: {
+        authors,
+        basePath,
+        skip: pageLength,
+        limit: pageLength,
+        category
+      },
+    });
+  });
+
   /**
    * Once the list of articles have bene created, we need to make individual article posts.
    * To do this, we need to find the corresponding authors since we allow for co-authors.
@@ -228,6 +251,7 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
         canonicalUrl: article.canonical_url,
         mailchimp,
         next,
+        category: article.category
       },
     });
   });

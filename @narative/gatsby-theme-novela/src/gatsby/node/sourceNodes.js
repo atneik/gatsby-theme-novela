@@ -12,6 +12,7 @@ module.exports = ({ actions }) => {
       timeToRead: Int
       canonical_url: String
       tags: [String]
+      category: String
     }
   `);
 };

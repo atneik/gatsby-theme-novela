@@ -33,6 +33,7 @@ module.exports.local = {
           subscription
           body
           tags
+          category
           hero {
             full: childImageSharp {
               fluid(maxWidth: 944, quality: 100) {

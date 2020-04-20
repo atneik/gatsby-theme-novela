@@ -16,7 +16,7 @@ interface ArticleHeroProps {
 
 const ArticleHero: React.FC<ArticleHeroProps> = ({ article, authors }) => {
   const hasCoAUthors = authors.length > 1;
-  const showHeroImage =
+  const showHeroTags =
     article.tags &&
     article.tags.length !== 0
 
@@ -32,9 +32,7 @@ const ArticleHero: React.FC<ArticleHeroProps> = ({ article, authors }) => {
         </HeroSubtitle>
       </Header>
       <HeroTags id="ArticleTags__Hero">
-        {showHeroImage && 
-           article.tags 
-        }
+        { showHeroTags && article.tags }
       </HeroTags>
     </Hero>
   );

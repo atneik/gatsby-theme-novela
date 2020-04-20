@@ -6,37 +6,33 @@ import SEO from "@components/SEO";
 import Layout from "@components/Layout";
 import Paginator from "@components/Navigation/Navigation.Paginator";
 
-import AuthorHero from "../sections/author/Author.Hero";
-import AuthorArticles from "../sections/author/Author.Articles";
+import ArticlesHeroCategory from "../sections/articles/Articles.Category.Hero";
+import ArticlesList from "../sections/articles/Articles.List";
 
 import { Template } from "@types";
 
 const ArticlesPage: Template = ({ location, pageContext }) => {
-  const author = pageContext.additionalContext.author;
   const articles = pageContext.group;
+  const category = pageContext.additionalContext.category;
 
   return (
     <Layout>
-      <SEO
-        pathname={location.pathname}
-        title={author.name}
-        description={author.bio}
-      />
+      <SEO pathname={location.pathname} />
+      <ArticlesHeroCategory category={category} />
       <Section narrow>
-        <AuthorHero author={author} />
-        {/* <AuthorArticles articles={articles} />
-        <AuthorPaginator>
+        <ArticlesList articles={articles} />
+        <ArticlesPaginator show={pageContext.pageCount > 1}>
           <Paginator {...pageContext} />
-        </AuthorPaginator> */}
+        </ArticlesPaginator>
       </Section>
-      <AuthorsGradient />
+      <ArticlesGradient />
     </Layout>
   );
-}
+};
 
 export default ArticlesPage;
 
-const AuthorsGradient = styled.div`
+const ArticlesGradient = styled.div`
   position: absolute;
   bottom: 0;
   left: 0;
@@ -48,6 +44,6 @@ const AuthorsGradient = styled.div`
   transition: ${p => p.theme.colorModeTransition};
 `;
 
-const AuthorPaginator = styled.div`
-  text-align: center;
+const ArticlesPaginator = styled.div<{ show: boolean }>`
+  ${p => p.show && `margin-top: 95px;`}
 `;
