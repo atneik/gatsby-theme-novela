@@ -115,13 +115,6 @@ const ListItem: React.FC<ArticlesListItemProps> = ({ article, narrow }) => {
           >
             {article.excerpt}
           </Excerpt>
-          <Excerpt
-            narrow={narrow}
-            hasOverflow={hasOverflow}
-            gridLayout={gridLayout}
-          >
-            {article.tags.join(' / ')}
-          </Excerpt>
           <MetaData>
             {article.date}
             {/* {article.date} · {article.timeToRead} min read */}
@@ -135,10 +128,10 @@ const ListItem: React.FC<ArticlesListItemProps> = ({ article, narrow }) => {
 const wide = '1fr';
 const narrow = '457px';
 
-const limitToTwoLines = css`
+const limitToThreeLines = css`
   text-overflow: ellipsis;
   overflow-wrap: normal;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   display: -webkit-box;
   white-space: normal;
@@ -290,7 +283,7 @@ const Title = styled(Headings.h2)`
   margin-bottom: ${p =>
     p.hasOverflow && p.gridLayout === 'tiles' ? '35px' : '10px'};
   transition: color 0.3s ease-in-out;
-  ${limitToTwoLines};
+  ${limitToThreeLines};
 
   ${mediaqueries.desktop`
     margin-bottom: 15px;
@@ -313,7 +306,7 @@ const Excerpt = styled.p<{
   narrow: boolean;
   gridLayout: string;
 }>`
-  ${limitToTwoLines};
+  ${limitToThreeLines};
   font-size: 16px;
   margin-bottom: 10px;
   color: ${p => p.theme.colors.grey};

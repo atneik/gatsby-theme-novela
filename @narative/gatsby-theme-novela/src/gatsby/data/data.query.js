@@ -25,7 +25,7 @@ module.exports.local = {
           secret
           title
           author
-          date(fromNow: true)
+          date(formatString: "YYYY")
           dateForSEO: date
           timeToRead
           excerpt
@@ -33,6 +33,10 @@ module.exports.local = {
           subscription
           body
           tags
+          links {
+            label
+            link
+          }
           category
           hero {
             full: childImageSharp {

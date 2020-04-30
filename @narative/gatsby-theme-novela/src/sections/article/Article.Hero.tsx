@@ -3,6 +3,9 @@ import styled from '@emotion/styled';
 
 import Headings from '@components/Headings';
 import Image, { ImagePlaceholder } from '@components/Image';
+import ButtonArrow from '@components/Button/Button.Arrow';
+import { useColorMode } from 'theme-ui';
+import { navigate } from "gatsby";
 
 import mediaqueries from '@styles/media';
 import { IArticle, IAuthor } from '@types';
@@ -15,6 +18,7 @@ interface ArticleHeroProps {
 }
 
 const ArticleHero: React.FC<ArticleHeroProps> = ({ article, authors }) => {
+  const [colorMode] = useColorMode();
   const hasCoAUthors = authors.length > 1;
   const showHeroTags =
     article.tags &&
@@ -25,16 +29,30 @@ const ArticleHero: React.FC<ArticleHeroProps> = ({ article, authors }) => {
       <Header>
         <Category>{ article.category }</Category>
         <HeroHeading>{article.title}</HeroHeading>
-        <HeroSubtitle hasCoAUthors={hasCoAUthors}>
-          <ArticleAuthors authors={authors} />
-          <ArticleMeta hasCoAUthors={hasCoAUthors}>
-            {article.date}
-            {/* {article.date} · {article.timeToRead} min read */}
-          </ArticleMeta>
+        <HeroSubtitle>
+          <ArticleMeta>{article.excerpt}</ArticleMeta>
         </HeroSubtitle>
-        <HeroTags id="ArticleTags__Hero">
-            { showHeroTags && article.tags.join(' / ') }
-        </HeroTags>
+        <HeroSubtitleContainer>
+          <HeroSubtitle>
+            <ArticleMeta><strong>Year</strong></ArticleMeta>
+            <ArticleMeta>{article.date}</ArticleMeta>
+          </HeroSubtitle>
+          <HeroSubtitle id="ArticleTags__Hero">
+            <ArticleMeta><strong>Technology</strong></ArticleMeta>
+            <ArticleMeta>{ showHeroTags && article.tags.join(' / ') }</ArticleMeta>
+          </HeroSubtitle>
+        </HeroSubtitleContainer>
+        { 
+          article.links && article.links.map(
+            (link, index) => 
+              <ButtonArrow
+                key={index}
+                text={link.label}
+                to={link.link}
+                color={colorMode === "dark" ? "#fff" : "#000"}
+                /> 
+            )
+        }
       </Header>
     </Hero>
   );
@@ -70,12 +88,9 @@ const Hero = styled.div`
   `}
 `;
 
-const ArticleMeta = styled.div<{ hasCoAUthors: boolean }>`
-  margin-left: ${p => (p.hasCoAUthors ? '10px' : '0')};
-
-  ${mediaqueries.phablet`
-    margin-left: 0;
-  `}
+const ArticleMeta = styled.div`
+  margin-left: 0;
+  line-height: 1.756;
 `;
 
 const Header = styled.header`
@@ -124,46 +139,22 @@ const HeroHeading = styled(Headings.h1)`
   `}
 `;
 
-const HeroSubtitle = styled.div<{ hasCoAUthors: boolean }>`
+const HeroSubtitle = styled.div`
   position: relative;
   display: flex;
+  flex-direction: column;
   font-size: 18px;
+  margin-bottom: 16px;
   color: ${p => p.theme.colors.grey};
 
-  ${p => mediaqueries.phablet`
-    font-size: 14px;
-    flex-direction: column;
-
-    ${p.hasCoAUthors &&
-      `
-        &::before {
-          content: '';
-          position: absolute;
-          left: -20px;
-          right: -20px;
-          top: -10px;
-          bottom: -10px;
-          border: 1px solid ${p.theme.colors.horizontalRule};
-          opacity: 0.5;
-          border-radius: 5px;
-        }
-    `}
-
-
-    strong {
-      display: block;
-      font-weight: 500;
-      margin-bottom: 5px;
-    }
-  `}
+  strong {
+    color:  ${p => p.theme.colors.primary};
+  }
 `;
 
-const HeroTags = styled.div`
-position: relative;
-color: ${p => p.theme.colors.grey};
-margin: 0 auto;
-padding-top: 25px;
-max-width: 749px;
+const HeroSubtitleContainer = styled.div`
+    display: block;
+    padding-top: 10px;
 `;
 
 const Category = styled(Headings.h2)`

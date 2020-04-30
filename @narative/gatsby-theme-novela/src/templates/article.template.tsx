@@ -87,9 +87,6 @@ const Article: Template = ({ pageContext, location }) => {
       <ArticleAside contentHeight={contentHeight}>
         <Progress contentHeight={contentHeight} />
       </ArticleAside>
-      <MobileControls>
-        <ArticleControls />
-      </MobileControls>
       <ArticleBody ref={contentSectionRef}>
         <MDXRenderer content={article.body}>
           <ArticleShare />
@@ -122,7 +119,7 @@ const MobileControls = styled.div`
 
 const ArticleBody = styled.article`
   position: relative;
-  padding: 160px 0 35px;
+  padding: 70px 0 80px;
   padding-left: 68px;
   transition: background 0.2s linear;
 

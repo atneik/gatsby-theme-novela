@@ -96,6 +96,7 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
       canonical_url: node.frontmatter.canonical_url,
       tags: node.frontmatter.tags,
       category: node.frontmatter.category,
+      links: node.frontmatter.links
     };
 
     createNode({
