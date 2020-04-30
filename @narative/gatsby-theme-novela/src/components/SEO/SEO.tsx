@@ -72,7 +72,7 @@ const SEO: React.FC<HelmetProps> = ({
   title,
   description,
   children,
-  url,
+  pathname,
   image,
   published,
   timeToRead,
@@ -85,15 +85,15 @@ const SEO: React.FC<HelmetProps> = ({
   const fullURL = (path: string) =>
     path ? `${site.siteUrl}${path}` : site.siteUrl;
 
+  // If no image is provided lets looks for a default novela static image
+  image = image ? image : '/preview.jpg';
+
   // Checks if the source of the image is hosted on Contentful
   if (`${image}`.includes('ctfassets')) {
-    image = `https:${image}`;
+    image = `${image}`;
   } else {
     image = fullURL(image);
   }
-
-  // If no image is provided lets looks for a default novela static image
-  image = image ? image : '/preview.jpg';
 
   const metaTags = [
     { charset: 'utf-8' },
@@ -125,10 +125,11 @@ const SEO: React.FC<HelmetProps> = ({
     },
 
     { property: 'og:title', content: title || site.title },
-    { property: 'og:url', content: url },
+    { property: 'og:url', content: site.siteUrl + pathname },
     { property: 'og:image', content: image },
     { property: 'og:description', content: description || site.description },
-    { property: 'og:site_name', content: site.name },
+    { property: 'og:site_name', content: site.title },
+    { property: 'og:type', content: 'website' },
   ];
 
   if (published) {
