@@ -14,14 +14,11 @@ links:
  - label: "Website"
    link: "http://exploresharepointspaces.com"
 ---
-<div className="Image__Medium">
-  <img src="./showcase.png"/>
-</div>
 
 # Abstract
-SharePoint spaces empower creators to build immersive experiences with point-and-click simplicity. You can get started with smart templates to create a mixed reality environment complete with beautiful surroundings, ambient sounds, rich textures, and lighting. You then add content, which can include files you already have in SharePoint, allowing you to repurpose your existing 3D models, 360 degree content, documents, and images. This project spun out of [Project Hiro](/Project-Hiro).
+SharePoint spaces empower creators to build and share immersive experiences with point-and-click simplicity. You can get started with smart templates to create a mixed reality environment complete with beautiful surroundings, ambient sounds, rich textures, and lighting. You then add content, which can include files you already have in SharePoint, allowing you to repurpose your existing 3D models, 360 degree content, documents, and images. This project spun out of [Project Hiro](/Project-Hiro).
 
-# A sample space created using Spaces
+#### A sample space created using Spaces
 <div className="Image__Medium">
   <div style="width: 100%;
     background: black;
@@ -30,65 +27,88 @@ SharePoint spaces empower creators to build immersive experiences with point-and
   <iframe style="border:none;" width="100%" height="640px" src="https://www.exploresharepointspaces.com/sample-classroom" />
 </div>
 
-# Interaction model 
-- Input and hover states, bounding shape, actions for 3D webparts, navigation and scenes. 
-- Inspection / Immersive Mode 
-- Controller mapping
+# Role
+Founding member and sole UX Engineer of the project responsible for Prototyping, Design and Integration of following features.
 
 # 3D Common Controls
-- Atomic 3D controls. DMM.
-- Cross-org collaboration. Analog, OMG & BabylonJS to build 3D common controls.
-- MR design forum. Fabric MR effort
+To build a cohesive set of 3D common controls I represented the team at companywide Mixed Reality design forum. My experience from Fabric/Fluent UI Library helped us develop these Atomic controls that work flawlessly in Mobile, Desktop and HMD.
 
-#### Menu system
 <div className="Image__Medium">
-  <video width="100%" loop autoplay>
+  <img src="./showcase.png"/>
+</div>
+
+# Interaction model
+The challenge was to build a system that just works for someone new to Virtual Reality; while making sure authors and third-party developers have enough create creative freedom to create valuable and beautiful spaces.
+To solve this, I extensively prototyped various interaction models inching towards the current in-product solution.
+
+#### Visual design & layout: Acrylic, Fluent 
+<div className="Image__Medium" style="display: flex;">
+  <video style="flex: 1 1 auto; align-self: stretch; width: 50%" loop autoplay>
     <source src="./videos/context-menu-01.mp4" type="video/mp4"/>
     Your browser does not support HTML5 video.
   </video>
-</div>
-<div className="Image__Medium">
-  <video width="100%" loop autoplay>
+  <video style="flex: 1 1 auto; align-self: stretch; width: 50%" loop autoplay>
     <source src="./videos/context-menu-02-layout-acrylic.mp4" type="video/mp4"/>
     Your browser does not support HTML5 video.
   </video>
 </div>
 
-<div className="Image__Medium">
-  <img src="./TitleBar.jpg" />
+#### Menu Types: Title, Contextual
+
+<div className="Image__Medium" style="display: flex;">
+  <div style="flex: 1 1 auto; align-self: stretch; width: 50%">
+    <img src="./TitleBar.jpg" />
+  </div>
+  <video style="flex: 1 1 auto; align-self: stretch; width: 50%" loop autoplay>
+    <source src="./videos/Mixed Reality Portal 10_25_18 2_39_42 PM_Trim.mp4" type="video/mp4"/>
+    Your browser does not support HTML5 video.
+  </video>
 </div>
 
-#### Document Library
-<div className="Image__Large">
-  <img src="./doclib.jpg" />
+#### Positioning: User-space, Object-locked 
+
+<div className="Image__Medium" style="display: flex;">
+  <video style="flex: 1 1 auto; align-self: stretch; width: 33%" loop autoplay>
+    <source src="./videos/Mixed Reality Portal 2020-05-28 16-03-00_Trim.mp4" type="video/mp4"/>
+    Your browser does not support HTML5 video.
+  </video>
+  <video style="flex: 1 1 auto; align-self: stretch; width: 33%" loop autoplay>
+    <source src="./videos/Mixed Reality Portal 2020-05-28 16-21-42_Trim.mp4" type="video/mp4"/>
+    Your browser does not support HTML5 video.
+  </video>
+  <video style="flex: 1 1 auto; align-self: stretch; width: 33%" loop autoplay>
+    <source src="./videos/Mixed Reality Portal 2020-05-28 16-16-04_Trim.mp4" type="video/mp4"/>
+    Your browser does not support HTML5 video.
+  </video>
 </div>
 
 # Authoring Controls
-- Hierarchy explorations
-- Property Panel
-- Enter & Exit experiences
-- Camera control explorations
+Authoring a 3D scene is hard, and we had to fix this to truly democratize creation. From object Transform control, Actions editor to Camera controls - I had to research, prototype and innovate in all domains.
 
 #### Actions editor
-<div className="Image__Large">
+<div className="Image__Medium">
   <video width="100%" loop autoplay>
     <source src="./videos/adding-actions.mp4" type="video/mp4"/>
     Your browser does not support HTML5 video.
   </video>
 </div>
 
-#### Transform control
-<div className="Image__Large">
-  <img src="./Transform Control.png" />
+#### Transform control & Object-locked UI behavior
+
+<div className="Image__Medium" style="display: flex;">
+  <div style="flex: 1 1 auto; align-self: center; width: 81%">
+    <img src="./Transform Control.png" />
+  </div>
+  <div style="flex: 1 1 auto; align-self: stretch; width: 19%">
+    <img src="./transform-panel.gif" />
+  </div>
 </div>
 
-#### In-situ Object Transform and UI behavior
-<div className="Image__Small">
-  <img src="./transform-panel.gif" />
+# Document Library
+How do we represent a collection of 2D and 3D files that fit to various user scenarios? In progress.
+<div className="Image__Medium">
+  <img src="./doclib.jpg" />
 </div>
 
-# Sound 
-- System sounds
-- Ambient sounds
-- Audio content
-- Welcome message
+# Spatialized Sound 
+No immersive experience is complete without ambient, content and Spatialized system sound based on interaction.
