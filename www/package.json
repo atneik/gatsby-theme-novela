@@ -8,6 +8,10 @@
     "develop": "rm -rf .cache && gatsby develop",
     "clean": "gatsby clean"
   },
+  "engines": {
+    "node": ">=10.0.0 <13.0.0",
+    "yarn": ">=1.22.0"
+  },
   "dependencies": {
     "@narative/gatsby-theme-novela": "^0.14.1",
     "dotenv": "^8.0.0",

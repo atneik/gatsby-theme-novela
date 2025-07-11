@@ -3,7 +3,12 @@
 
 ## Build
 
-Before starting install `Node.js` and `yarn`.
+Before starting install `Node.js v12` and `yarn`.
+
+### Step 0: Node v12
+```sh
+nvm use 12
+```
 
 ### Step 1: Install
 ```sh

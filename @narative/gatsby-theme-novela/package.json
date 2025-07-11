@@ -35,6 +35,10 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
+  "engines": {
+    "node": ">=10.0.0 <13.0.0",
+    "yarn": ">=1.22.0"
+  },
   "dependencies": {
     "@emotion/core": "^10.0.14",
     "@emotion/styled": "^10.0.14",

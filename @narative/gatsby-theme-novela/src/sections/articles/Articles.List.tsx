@@ -104,7 +104,7 @@ const ListItem: React.FC<ArticlesListItemProps> = ({ article, narrow }) => {
         <ImageContainer narrow={narrow} gridLayout={gridLayout}>
           {hasHeroImage ? <Image src={imageSource} /> : <ImagePlaceholder />}
         </ImageContainer>
-        <div>
+        <ContentWrapper>
           <Title dark hasOverflow={hasOverflow} gridLayout={gridLayout}>
             {article.title}
           </Title>
@@ -119,7 +119,7 @@ const ListItem: React.FC<ArticlesListItemProps> = ({ article, narrow }) => {
             {article.date}
             {/* {article.date} · {article.timeToRead} min read */}
           </MetaData>
-        </div>
+        </ContentWrapper>
       </Item>
     </ArticleLink>
   );
@@ -191,7 +191,9 @@ const listItemRow = p => css`
   grid-template-rows: 1;
   align-items: center;
   position: relative;
-  margin-bottom: 50px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  background: ${p.theme.colors.card};
 
   ${mediaqueries.desktop`
     grid-column-gap: 24px;
@@ -207,7 +209,7 @@ const listItemRow = p => css`
   }
 
   ${mediaqueries.phablet`
-    box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.2);
+    box-shadow: none;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
   `}
@@ -248,13 +250,13 @@ const List = styled.div<{
 
 const Item = styled.div<{ gridLayout: string }>`
   ${p => (p.gridLayout === 'rows' ? listItemRow : listItemTile)}
+  transition: transform 0.3s var(--ease-out-quad),
+    box-shadow 0.3s var(--ease-out-quad);
 `;
 
 const ImageContainer = styled.div<{ narrow: boolean; gridLayout: string }>`
   position: relative;
   height: ${p => (p.gridLayout === 'tiles' ? '280px' : '220px')};
-  box-shadow: 0 30px 60px -10px rgba(0, 0, 0, ${p => (p.narrow ? 0.22 : 0.3)}),
-    0 18px 36px -18px rgba(0, 0, 0, ${p => (p.narrow ? 0.25 : 0.33)});
   margin-bottom: ${p => (p.gridLayout === 'tiles' ? '30px' : 0)};
   transition: transform 0.3s var(--ease-out-quad),
     box-shadow 0.3s var(--ease-out-quad);
@@ -341,6 +343,10 @@ const MetaData = styled.div`
   `}
 `;
 
+const ContentWrapper = styled.div`
+  padding: 20px;
+`;
+
 const ArticleLink = styled(Link)`
   position: relative;
   display: block;
@@ -353,15 +359,10 @@ const ArticleLink = styled(Link)`
   transition: transform 0.33s var(--ease-out-quart);
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 
-  &:hover ${ImageContainer}, &:focus ${ImageContainer} {
-    transform: translateY(-1px);
-    box-shadow: 0 50px 80px -20px rgba(0, 0, 0, 0.27),
+  &:hover ${Item}, &:focus ${Item} {
+    transform: translateY(-2px);
+    box-shadow: 0 30px 80px -50px rgba(0, 0, 0, 0.27),
       0 30px 50px -30px rgba(0, 0, 0, 0.3);
-  }
-
-  &:hover h2,
-  &:focus h2 {
-    color: ${p => p.theme.colors.accent};
   }
 
   &[data-a11y='true']:focus::after {
