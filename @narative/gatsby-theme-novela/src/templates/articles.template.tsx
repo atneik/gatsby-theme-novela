@@ -28,7 +28,7 @@ const ArticlesPage: Template = ({ location, pageContext }) => {
       <SEO pathname={location.pathname} />
       <ArticlesHero authors={authors} />
         <Section narrow>
-          {
+          {/* {
             categories.map((category, index) => {
               const articles = categoriesObject[category];
 
@@ -41,6 +41,10 @@ const ArticlesPage: Template = ({ location, pageContext }) => {
                 </div>
               )
             })
+
+          } */}
+          {
+            <ArticlesList articles={articles} />
           }
           <ArticlesPaginator show={pageContext.pageCount > 1}>
             <Paginator {...pageContext} />
