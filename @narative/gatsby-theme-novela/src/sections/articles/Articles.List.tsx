@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import { Link } from 'gatsby';
+import { useColorMode } from 'theme-ui';
 
 import Headings from '@components/Headings';
 import Image, { ImagePlaceholder } from '@components/Image';
@@ -90,6 +91,8 @@ export default ArticlesList;
 const ListItem: React.FC<ArticlesListItemProps> = ({ article, narrow }) => {
   if (!article) return null;
 
+  const [colorMode] = useColorMode();
+  const isDark = colorMode === 'dark';
   const { gridLayout } = useContext(GridLayoutContext);
   const hasOverflow = narrow && article.title.length > 35;
   const imageSource = narrow ? article.hero.narrow : article.hero.regular;
@@ -99,7 +102,12 @@ const ListItem: React.FC<ArticlesListItemProps> = ({ article, narrow }) => {
     imageSource.constructor === Object;
 
   return (
-    <ArticleLink to={article.slug} data-a11y="false" noImage={article.noImage}>
+    <ArticleLink
+      to={article.slug}
+      data-a11y="false"
+      noImage={article.noImage}
+      isDark={isDark}
+    >
       <Item gridLayout={gridLayout} noImage={article.noImage}>
         {!article.noImage && (
           <ImageContainer narrow={narrow || false} gridLayout={gridLayout}>
@@ -350,7 +358,6 @@ const MetaData = styled.div`
   font-weight: 600;
   font-size: 16px;
   color: ${p => p.theme.colors.grey};
-  opacity: 0.33;
 
   ${mediaqueries.phablet`
     max-width: 100%;
@@ -362,7 +369,7 @@ const ContentWrapper = styled.div`
   padding: 20px;
 `;
 
-const ArticleLink = styled(Link)<{ noImage?: boolean }>`
+const ArticleLink = styled(Link)<{ noImage?: boolean; isDark: boolean }>`
   position: relative;
   display: block;
   width: ${p => (p.noImage ? '488px' : '100%')};
@@ -380,8 +387,10 @@ const ArticleLink = styled(Link)<{ noImage?: boolean }>`
 
   &:hover ${Item}, &:focus ${Item} {
     transform: translateY(-2px);
-    box-shadow: 0 30px 80px -50px rgba(0, 0, 0, 0.27),
-      0 30px 50px -30px rgba(0, 0, 0, 0.3);
+    box-shadow: ${p =>
+      p.isDark
+        ? '0 26px 60px -24px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.12)'
+        : '0 30px 80px -50px rgba(0, 0, 0, 0.27), 0 30px 50px -30px rgba(0, 0, 0, 0.3)'};
   }
 
   &[data-a11y='true']:focus::after {
