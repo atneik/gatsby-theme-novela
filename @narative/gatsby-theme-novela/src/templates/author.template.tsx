@@ -16,7 +16,7 @@ const ArticlesPage: Template = ({ location, pageContext }) => {
   const articles = pageContext.group;
 
   return (
-    <Layout>
+    <Layout location={location}>
       <SEO
         pathname={location.pathname}
         title={author.name}

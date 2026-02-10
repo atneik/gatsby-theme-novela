@@ -16,7 +16,7 @@ const ArticlesPage: Template = ({ location, pageContext }) => {
   const category = pageContext.additionalContext.category;
 
   return (
-    <Layout>
+    <Layout location={location}>
       <SEO pathname={location.pathname} />
       <ArticlesHeroCategory category={category} />
       <Section narrow>

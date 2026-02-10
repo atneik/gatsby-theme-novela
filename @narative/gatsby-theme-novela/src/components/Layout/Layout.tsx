@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
+import { WindowLocation } from '@reach/router';
 import { Global } from '@emotion/core';
 import styled from '@emotion/styled';
 import { useColorMode } from 'theme-ui';
 
 import NavigationFooter from '@components/Navigation/Navigation.Footer';
 import NavigationHeader from '@components/Navigation/Navigation.Header';
+import PageTransition from '@components/PageTransition/PageTransition';
 import ArticlesContextProvider from '../../sections/articles/Articles.List.Context';
 
 import { globalStyles } from '@styles';
@@ -14,8 +16,16 @@ import { globalStyles } from '@styles';
  * and the main structure of each page. Within Layout we have the <Container />
  * which hides a lot of the mess we need to create our Desktop and Mobile experiences.
  */
-const Layout: React.FC<{}> = ({ children }) => {
+interface LayoutProps {
+  children: React.ReactNode;
+  location?: WindowLocation;
+}
+
+const Layout: React.FC<LayoutProps> = ({ children, location }) => {
   const [colorMode] = useColorMode();
+  const pathname =
+    location?.pathname ||
+    (typeof window !== 'undefined' ? window.location.pathname : '');
 
   useEffect(() => {
     parent.postMessage({ theme: colorMode }, '*');
@@ -27,7 +37,9 @@ const Layout: React.FC<{}> = ({ children }) => {
         <Global styles={globalStyles} />
         <SkipToContent href="#main-content">Skip to content</SkipToContent>
         <NavigationHeader />
-        <MainContent id="main-content">{children}</MainContent>
+        <MainContent id="main-content">
+          <PageTransition key={pathname}>{children}</PageTransition>
+        </MainContent>
         <NavigationFooter />
       </Container>
     </ArticlesContextProvider>
@@ -43,7 +55,10 @@ const Container = styled.div`
   min-height: 100vh;
 `;
 
-const MainContent = styled.main``;
+const MainContent = styled.main`
+  position: relative;
+  z-index: 1;
+`;
 
 const SkipToContent = styled.a`
   position: absolute;

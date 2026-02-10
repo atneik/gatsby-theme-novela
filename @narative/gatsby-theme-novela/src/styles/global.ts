@@ -51,6 +51,7 @@ export const globalStyles = css`
     margin: 0;
     font-weight: 400;
     height: 100%;
+    overflow-y: scroll;
   }
 
   article {

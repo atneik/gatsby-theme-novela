@@ -81,7 +81,7 @@ const Article: Template = ({ pageContext, location }) => {
   }, []);
 
   return (
-    <Layout>
+    <Layout location={location}>
       <ArticleSEO article={article} authors={authors} location={location} />
       <ArticleHero article={article} authors={authors} />
       <ArticleAside contentHeight={contentHeight}>
@@ -95,7 +95,7 @@ const Article: Template = ({ pageContext, location }) => {
       {mailchimp && article.subscription && <Subscription />}
       {next.length > 0 && (
         <NextArticle narrow>
-          <FooterNext>More articles from {name}</FooterNext>
+          <FooterNext>More articles</FooterNext>
           <ArticlesNext articles={next} />
           <FooterSpacer />
         </NextArticle>
@@ -142,10 +142,13 @@ const NextArticle = styled(Section)`
 
 const FooterNext = styled.h3`
   position: relative;
-  opacity: 0.25;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  opacity: 1;
   margin-bottom: 100px;
   font-weight: 400;
-  color: ${p => p.theme.colors.primary};
+  color: ${p => p.theme.colors.grey};
 
   ${mediaqueries.tablet`
     margin-bottom: 60px;
@@ -153,12 +156,9 @@ const FooterNext = styled.h3`
 
   &::after {
     content: '';
-    position: absolute;
-    background: ${p => p.theme.colors.grey};
-    width: ${(910 / 1140) * 100}%;
+    background: ${p => p.theme.colors.horizontalRule};
     height: 1px;
-    right: 0;
-    top: 11px;
+    flex: 1;
 
     ${mediaqueries.tablet`
       width: ${(600 / 1140) * 100}%;

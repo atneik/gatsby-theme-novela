@@ -24,10 +24,10 @@ const ArticlesPage: Template = ({ location, pageContext }) => {
   const maxArticles = 2;
 
   return (
-    <Layout>
+    <Layout location={location}>
       <SEO pathname={location.pathname} />
       <ArticlesHero authors={authors} />
-        <Section narrow>
+        <ArticlesSection narrow>
           {/* {
             categories.map((category, index) => {
               const articles = categoriesObject[category];
@@ -49,7 +49,7 @@ const ArticlesPage: Template = ({ location, pageContext }) => {
           <ArticlesPaginator show={pageContext.pageCount > 1}>
             <Paginator {...pageContext} />
           </ArticlesPaginator>
-        </Section>
+        </ArticlesSection>
       <ArticlesGradient />
     </Layout>
   );
@@ -92,6 +92,18 @@ const ArticlesGradient = styled.div`
   pointer-events: none;
   background: ${p => p.theme.colors.gradient};
   transition: ${p => p.theme.colorModeTransition};
+`;
+
+const ArticlesSection = styled(Section)`
+  padding-bottom: 120px;
+
+  ${mediaqueries.tablet`
+    padding-bottom: 90px;
+  `}
+
+  ${mediaqueries.phablet`
+    padding-bottom: 70px;
+  `}
 `;
 
 const ArticlesPaginator = styled.div<{ show: boolean }>`

@@ -1,6 +1,5 @@
 // Load static fonts
-require('typeface-merriweather');
-
-exports.onInitialClientRender = require('./src/gatsby/browser/onInitialClientRender');
-exports.onRouteUpdate = require('./src/gatsby/browser/onRouteUpdate');
-exports.shouldUpdateScroll = require('./src/gatsby/browser/shouldUpdateScroll');
+import 'typeface-merriweather';
+export { default as onInitialClientRender } from './src/gatsby/browser/onInitialClientRender';
+export { default as onRouteUpdate } from './src/gatsby/browser/onRouteUpdate';
+export { default as shouldUpdateScroll } from './src/gatsby/browser/shouldUpdateScroll';

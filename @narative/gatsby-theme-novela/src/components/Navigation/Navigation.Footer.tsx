@@ -52,7 +52,7 @@ const Footer: React.FC<{}> = () => {
   return (
     <>
       <FooterGradient />
-      <Section narrow>
+      <FooterContent narrow>
         <HoritzontalRule />
         <FooterContainer>
           <FooterText>
@@ -62,7 +62,7 @@ const Footer: React.FC<{}> = () => {
             <SocialLinks links={social} />
           </div>
         </FooterContainer>
-      </Section>
+      </FooterContent>
     </>
   );
 };
@@ -85,6 +85,11 @@ const FooterContainer = styled.div`
   ${mediaqueries.phablet`
     padding-bottom: 50px;
   `}
+`;
+
+const FooterContent = styled(Section)`
+  position: relative;
+  z-index: 1;
 `;
 
 const HoritzontalRule = styled.div`
