@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { Link, navigate, graphql, useStaticQuery } from "gatsby";
+import { Link, graphql, useStaticQuery } from "gatsby";
 import { useColorMode } from "theme-ui";
 
 import Section from "@components/Section";
@@ -8,11 +8,7 @@ import Logo from "@components/Logo";
 
 import Icons from "@icons";
 import mediaqueries from "@styles/media";
-import {
-  copyToClipboard,
-  getWindowDimensions,
-  getBreakpointFromTheme,
-} from "@utils";
+import { copyToClipboard } from "@utils";
 
 const siteQuery = graphql`
   {
@@ -82,28 +78,11 @@ const SharePageButton: React.FC<{}> = () => {
 };
 
 const NavigationHeader: React.FC<{}> = () => {
-  const [showBackArrow, setShowBackArrow] = useState<boolean>(false);
-  const [previousPath, setPreviousPath] = useState<string>("/");
   const { sitePlugin } = useStaticQuery(siteQuery);
 
   const [colorMode] = useColorMode();
   const fill = colorMode === "dark" ? "#fff" : "#000";
   const { rootPath, basePath } = sitePlugin.pluginOptions;
-
-  useEffect(() => {
-    const { width } = getWindowDimensions();
-    const phablet = getBreakpointFromTheme("phablet");
-
-    const prev = localStorage.getItem("previousPath");
-    const previousPathWasHomepage =
-      prev === (rootPath || basePath) || (prev && prev.includes("/page/"));
-    const isNotPaginated = !location.pathname.includes("/page/");
-
-    setShowBackArrow(
-      previousPathWasHomepage && isNotPaginated && width <= phablet,
-    );
-    setPreviousPath(prev);
-  }, []);
 
   return (
     <Section>
@@ -113,31 +92,13 @@ const NavigationHeader: React.FC<{}> = () => {
           data-a11y="false"
           title="Navigate back to the homepage"
           aria-label="Navigate back to the homepage"
-          back={showBackArrow ? "true" : "false"}
         >
-          {showBackArrow && (
-            <BackArrowIconContainer>
-              <Icons.ChevronLeft fill={fill} />
-            </BackArrowIconContainer>
-          )}
           <Logo fill={fill} />
           <Hidden>Navigate back to the homepage</Hidden>
         </LogoLink>
         <NavControls>
-          {showBackArrow ? (
-            <button
-              onClick={() => navigate(previousPath)}
-              title="Navigate back to the homepage"
-              aria-label="Navigate back to the homepage"
-            >
-              <Icons.Ex fill={fill} />
-            </button>
-          ) : (
-            <>
-              {/* <SharePageButton /> */}
-              <DarkModeToggle />
-            </>
-          )}
+          {/* <SharePageButton /> */}
+          <DarkModeToggle />
         </NavControls>
       </NavContainer>
     </Section>
@@ -145,23 +106,6 @@ const NavigationHeader: React.FC<{}> = () => {
 };
 
 export default NavigationHeader;
-
-const BackArrowIconContainer = styled.div`
-  transition: 0.2s transform var(--ease-out-quad);
-  opacity: 0;
-  padding-right: 30px;
-  animation: fadein 0.3s linear forwards;
-
-  @keyframes fadein {
-    to {
-      opacity: 1;
-    }
-  }
-
-  ${mediaqueries.desktop_medium`
-    display: none;
-  `}
-`;
 
 const NavContainer = styled.div`
   position: relative;
@@ -179,15 +123,10 @@ const NavContainer = styled.div`
   }
 `;
 
-const LogoLink = styled(Link)<{ back: string }>`
+const LogoLink = styled(Link)`
   position: relative;
   display: flex;
   align-items: center;
-  left: ${p => (p.back === "true" ? "-54px" : 0)};
-
-  ${mediaqueries.desktop_medium`
-    left: 0
-  `}
 
   &[data-a11y="true"]:focus::after {
     content: "";
@@ -201,11 +140,6 @@ const LogoLink = styled(Link)<{ back: string }>`
     border-radius: 5px;
   }
 
-  &:hover {
-    ${BackArrowIconContainer} {
-      transform: translateX(-3px);
-    }
-  }
 `;
 
 const NavControls = styled.div`
