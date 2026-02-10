@@ -141,7 +141,7 @@ const ArticlesList: React.FC<ArticlesListProps> = ({
             aria-controls={listId}
             aria-expanded={showAll}
           >
-            Load more
+            Show more
           </LoadMoreButton>
         </LoadMoreContainer>
       )}
