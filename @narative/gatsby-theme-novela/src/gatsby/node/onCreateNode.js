@@ -97,6 +97,7 @@ module.exports = ({ node, actions, getNode, createNodeId }, themeOptions) => {
       tags: node.frontmatter.tags,
       category: node.frontmatter.category,
       links: node.frontmatter.links,
+      noImage: node.frontmatter.noImage || false,
     };
 
     createNode({

@@ -38,6 +38,7 @@ module.exports.local = {
             link
           }
           category
+          noImage
           hero {
             full: childImageSharp {
               fluid(maxWidth: 944, quality: 100) {

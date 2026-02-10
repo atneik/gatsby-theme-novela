@@ -101,9 +101,11 @@ const ListItem: React.FC<ArticlesListItemProps> = ({ article, narrow }) => {
   return (
     <ArticleLink to={article.slug} data-a11y="false">
       <Item gridLayout={gridLayout}>
-        <ImageContainer narrow={narrow} gridLayout={gridLayout}>
-          {hasHeroImage ? <Image src={imageSource} /> : <ImagePlaceholder />}
-        </ImageContainer>
+        {!article.noImage && (
+          <ImageContainer narrow={narrow || false} gridLayout={gridLayout}>
+            {hasHeroImage ? <Image src={imageSource} /> : <ImagePlaceholder />}
+          </ImageContainer>
+        )}
         <ContentWrapper>
           <Title dark hasOverflow={hasOverflow} gridLayout={gridLayout}>
             {article.title}

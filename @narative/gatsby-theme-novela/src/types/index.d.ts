@@ -51,6 +51,7 @@ export interface IArticle {
   };
   timeToRead: number;
   date: string;
+  noImage?: boolean;
   tags: string[];
 }
 

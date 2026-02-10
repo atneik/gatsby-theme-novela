@@ -13,6 +13,7 @@ module.exports = ({ actions }) => {
       canonical_url: String
       tags: [String]
       category: String
+      noImage: Boolean
     }
   `);
 };
