@@ -173,8 +173,8 @@ const ListItem: React.FC<ArticlesListItemProps> = ({
     <ArticleLink
       to={article.slug}
       data-a11y="false"
-      $noImage={shouldHideImage}
-      $isDark={isDark}
+      noImage={shouldHideImage}
+      isDark={isDark}
     >
       <Item gridLayout={gridLayout} noImage={shouldHideImage}>
         {!shouldHideImage && (
@@ -473,10 +473,12 @@ const ContentWrapper = styled.div`
   padding: 20px;
 `;
 
-const ArticleLink = styled(Link)<{ $noImage?: boolean; $isDark: boolean }>`
+const ArticleLink = styled(Link, {
+  shouldForwardProp: prop => !['noImage', 'isDark'].includes(prop as string),
+})<{ noImage?: boolean; isDark: boolean }>`
   position: relative;
   display: block;
-  width: ${p => (p.$noImage ? '488px' : '100%')};
+  width: ${p => (p.noImage ? '488px' : '100%')};
   height: 100%;
   top: 0;
   left: 0;
@@ -485,14 +487,14 @@ const ArticleLink = styled(Link)<{ $noImage?: boolean; $isDark: boolean }>`
   transition: transform 0.33s var(--ease-out-quart);
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 
-  ${p => p.$noImage && mediaqueries.desktop`
+  ${p => p.noImage && mediaqueries.desktop`
     width: 100%;
   `}
 
   &:hover ${Item}, &:focus ${Item} {
     transform: translateY(-2px);
     box-shadow: ${p =>
-      p.$isDark
+      p.isDark
         ? '0 26px 60px -24px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.12)'
         : '0 30px 80px -50px rgba(0, 0, 0, 0.27), 0 30px 50px -30px rgba(0, 0, 0, 0.3)'};
   }

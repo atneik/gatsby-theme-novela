@@ -10,9 +10,6 @@ export default props => (
         name="viewport"
         content="width=device-width, initial-scale=1, shrink-to-fit=no"
       />
-      <script
-        dangerouslySetInnerHTML={{ __html: `document.domain = "anikethanda.com"` }}
-      />
       {props.headComponents}
     </head>
     <body {...props.bodyAttributes}>
