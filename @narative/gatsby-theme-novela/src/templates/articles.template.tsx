@@ -44,7 +44,7 @@ const ArticlesPage: Template = ({ location, pageContext }) => {
 
           } */}
           {
-            <ArticlesList articles={articles} />
+            <ArticlesList articles={articles} layout="tiles" enableLoadMore />
           }
           <ArticlesPaginator show={pageContext.pageCount > 1}>
             <Paginator {...pageContext} />

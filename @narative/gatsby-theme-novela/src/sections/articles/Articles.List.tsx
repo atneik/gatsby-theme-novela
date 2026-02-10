@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import { Link } from 'gatsby';
@@ -29,16 +29,24 @@ import { GridLayoutContext } from './Articles.List.Context';
 interface ArticlesListProps {
   articles: IArticle[];
   alwaysShowAllDetails?: boolean;
+  layout?: 'tiles' | 'rows';
+  forceImage?: boolean;
+  enableLoadMore?: boolean;
 }
 
 interface ArticlesListItemProps {
   article: IArticle;
   narrow?: boolean;
+  gridLayout: 'tiles' | 'rows';
+  forceImage?: boolean;
 }
 
 const ArticlesList: React.FC<ArticlesListProps> = ({
   articles,
   alwaysShowAllDetails,
+  layout,
+  forceImage,
+  enableLoadMore,
 }) => {
   if (!articles) return null;
 
@@ -46,54 +54,114 @@ const ArticlesList: React.FC<ArticlesListProps> = ({
   const { gridLayout = 'rows', hasSetGridLayout, getGridLayout } = useContext(
     GridLayoutContext,
   );
+  const shouldForceImage = forceImage ?? true;
+  const isLockedLayout = Boolean(layout);
+  const resolvedLayout = layout || gridLayout;
+  const [showAll, setShowAll] = useState(false);
+  const loadMoreAnchorDate = '2014-04-28';
+  const listId = 'Articles__List';
 
-  /**
-   * We're taking the flat array of articles [{}, {}, {}...]
-   * and turning it into an array of pairs of articles [[{}, {}], [{}, {}], [{}, {}]...]
-   * This makes it simpler to create the grid we want
-   */
-  const articlePairs = articles.reduce((result, value, index, array) => {
-    if (index % 2 === 0) {
-      result.push(array.slice(index, index + 2));
-    }
-    return result;
-  }, []);
+  const matchesAnchorDate = (article: IArticle) => {
+    const rawDate = `${article.dateForSEO || article.date || ''}`;
+    return rawDate.slice(0, 10) === loadMoreAnchorDate;
+  };
 
-  useEffect(() => getGridLayout(), []);
+  const canShowLoadMore = useMemo(() => {
+    if (!enableLoadMore) return false;
+    return articles.some(matchesAnchorDate);
+  }, [articles, enableLoadMore]);
+
+  const visibleArticles = useMemo(() => {
+    if (!canShowLoadMore || showAll) return articles;
+
+    const anchorIndex = articles.findIndex(matchesAnchorDate);
+
+    if (anchorIndex === -1) return articles;
+    return articles.slice(0, anchorIndex + 1);
+  }, [articles, canShowLoadMore, showAll]);
+
+  useEffect(() => {
+    if (isLockedLayout) return;
+    getGridLayout();
+  }, [getGridLayout, isLockedLayout]);
+
+  const renderArticlePairs = (list: IArticle[]) => {
+    /**
+     * We're taking the flat array of articles [{}, {}, {}...]
+     * and turning it into an array of pairs of articles [[{}, {}], [{}, {}], [{}, {}]...]
+     * This makes it simpler to create the grid we want
+     */
+    const articlePairs = list.reduce((result, value, index, array) => {
+      if (index % 2 === 0) {
+        result.push(array.slice(index, index + 2));
+      }
+      return result;
+    }, [] as IArticle[][]);
+
+    return articlePairs.map((ap, index) => {
+      const isEven = index % 2 !== 0;
+      const isOdd = index % 2 !== 1;
+
+      return (
+        <List
+          key={index}
+          gridLayout={resolvedLayout}
+          hasOnlyOneArticle={hasOnlyOneArticle}
+          reverse={isEven}
+        >
+          <ListItem
+            article={ap[0]}
+            narrow={isEven}
+            gridLayout={resolvedLayout}
+            forceImage={shouldForceImage}
+          />
+          <ListItem
+            article={ap[1]}
+            narrow={isOdd}
+            gridLayout={resolvedLayout}
+            forceImage={shouldForceImage}
+          />
+        </List>
+      );
+    });
+  };
 
   return (
     <ArticlesListContainer
-      style={{ opacity: hasSetGridLayout ? 1 : 0 }}
+      id={listId}
+      style={{ opacity: isLockedLayout || hasSetGridLayout ? 1 : 0 }}
       alwaysShowAllDetails={alwaysShowAllDetails}
     >
-      {articlePairs.map((ap, index) => {
-        const isEven = index % 2 !== 0;
-        const isOdd = index % 2 !== 1;
-
-        return (
-          <List
-            key={index}
-            gridLayout={gridLayout}
-            hasOnlyOneArticle={hasOnlyOneArticle}
-            reverse={isEven}
+      {renderArticlePairs(visibleArticles)}
+      {canShowLoadMore && !showAll && (
+        <LoadMoreContainer>
+          <LoadMoreButton
+            type="button"
+            onClick={() => setShowAll(true)}
+            aria-controls={listId}
+            aria-expanded={showAll}
           >
-            <ListItem article={ap[0]} narrow={isEven} />
-            <ListItem article={ap[1]} narrow={isOdd} />
-          </List>
-        );
-      })}
+            Load more
+          </LoadMoreButton>
+        </LoadMoreContainer>
+      )}
     </ArticlesListContainer>
   );
 };
 
 export default ArticlesList;
 
-const ListItem: React.FC<ArticlesListItemProps> = ({ article, narrow }) => {
+const ListItem: React.FC<ArticlesListItemProps> = ({
+  article,
+  narrow,
+  gridLayout,
+  forceImage,
+}) => {
   if (!article) return null;
 
   const [colorMode] = useColorMode();
   const isDark = colorMode === 'dark';
-  const { gridLayout } = useContext(GridLayoutContext);
+  const shouldHideImage = !forceImage && article.noImage;
   const hasOverflow = narrow && article.title.length > 35;
   const imageSource = narrow ? article.hero.narrow : article.hero.regular;
   const hasHeroImage =
@@ -105,11 +173,11 @@ const ListItem: React.FC<ArticlesListItemProps> = ({ article, narrow }) => {
     <ArticleLink
       to={article.slug}
       data-a11y="false"
-      noImage={article.noImage}
+      noImage={shouldHideImage}
       isDark={isDark}
     >
-      <Item gridLayout={gridLayout} noImage={article.noImage}>
-        {!article.noImage && (
+      <Item gridLayout={gridLayout} noImage={shouldHideImage}>
+        {!shouldHideImage && (
           <ImageContainer narrow={narrow || false} gridLayout={gridLayout}>
             {hasHeroImage ? <Image src={imageSource} alt={article.title} /> : <ImagePlaceholder />}
           </ImageContainer>
@@ -165,6 +233,42 @@ const showDetails = css`
 const ArticlesListContainer = styled.div<{ alwaysShowAllDetails?: boolean }>`
   transition: opacity 0.25s;
   ${p => p.alwaysShowAllDetails && showDetails}
+`;
+
+const LoadMoreContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 80px 0 110px;
+
+  ${mediaqueries.tablet`
+    margin: 60px 0 80px;
+  `}
+`;
+
+const LoadMoreButton = styled.button`
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1;
+  padding: 1.2rem 3.2rem;
+  border-radius: 999px;
+  border: 1px solid ${p => p.theme.colors.primary};
+  background: ${p => p.theme.colors.background};
+  color: ${p => p.theme.colors.primary};
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover,
+  &:focus {
+    background: ${p => p.theme.colors.primary};
+    border-color: ${p => p.theme.colors.primary};
+    color: ${p => p.theme.colors.background};
+  }
+
+  &:focus-visible {
+    box-shadow: 0 0 0 3px ${p => p.theme.colors.accent};
+    outline: none;
+  }
 `;
 
 const listTile = p => css`

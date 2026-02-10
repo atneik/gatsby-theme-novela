@@ -15,7 +15,7 @@ import { debounce } from "@utils";
 import ArticleAside from "../sections/article/Article.Aside";
 import ArticleHero from "../sections/article/Article.Hero";
 import ArticleControls from "../sections/article/Article.Controls";
-import ArticlesNext from "../sections/article/Article.Next";
+import ArticlesList from "../sections/articles/Articles.List";
 import ArticleSEO from "../sections/article/Article.SEO";
 import ArticleShare from "../sections/article/Article.Share";
 
@@ -96,7 +96,7 @@ const Article: Template = ({ pageContext, location }) => {
       {next.length > 0 && (
         <NextArticle narrow>
           <FooterNext>More articles</FooterNext>
-          <ArticlesNext articles={next} />
+          <ArticlesList articles={next} layout="tiles" forceImage />
           <FooterSpacer />
         </NextArticle>
       )}
