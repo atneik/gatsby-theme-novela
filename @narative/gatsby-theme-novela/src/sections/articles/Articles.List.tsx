@@ -99,8 +99,8 @@ const ListItem: React.FC<ArticlesListItemProps> = ({ article, narrow }) => {
     imageSource.constructor === Object;
 
   return (
-    <ArticleLink to={article.slug} data-a11y="false">
-      <Item gridLayout={gridLayout}>
+    <ArticleLink to={article.slug} data-a11y="false" noImage={article.noImage}>
+      <Item gridLayout={gridLayout} noImage={article.noImage}>
         {!article.noImage && (
           <ImageContainer narrow={narrow || false} gridLayout={gridLayout}>
             {hasHeroImage ? <Image src={imageSource} /> : <ImagePlaceholder />}
@@ -237,9 +237,14 @@ const listItemTile = p => css`
 `;
 
 // If only 1 article, dont create 2 rows.
-const listRow = p => css`
-  display: grid;
-  grid-template-rows: ${p.hasOnlyOneArticle ? '1fr' : '1fr 1fr'};
+const listRow = () => css`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 164px;
+
+  ${mediaqueries.desktop`
+    gap: 0;
+  `}
 `;
 
 const List = styled.div<{
@@ -250,8 +255,15 @@ const List = styled.div<{
   ${p => (p.gridLayout === 'tiles' ? listTile : listRow)}
 `;
 
-const Item = styled.div<{ gridLayout: string }>`
+const Item = styled.div<{ gridLayout: string; noImage?: boolean }>`
   ${p => (p.gridLayout === 'rows' ? listItemRow : listItemTile)}
+  border-radius: 10px;
+  overflow: hidden;
+  ${p => p.noImage && css`
+    background: transparent !important;
+    grid-template-columns: 1fr;
+    box-shadow: none;
+  `}
   transition: transform 0.3s var(--ease-out-quad),
     box-shadow 0.3s var(--ease-out-quad);
 `;
@@ -316,13 +328,14 @@ const Excerpt = styled.p<{
   color: ${p => p.theme.colors.grey};
   display: ${p => (p.hasOverflow && p.gridLayout === 'tiles' ? 'none' : 'box')};
   max-width: ${p => (p.narrow ? '415px' : '515px')};
+  min-height: 3.6em;
 
   ${mediaqueries.desktop`
     display: -webkit-box;
   `}
 
   ${mediaqueries.phablet`
-    margin-bottom; 15px;
+    margin-bottom: 15px;
   `}
 
   ${mediaqueries.phablet`
@@ -349,10 +362,10 @@ const ContentWrapper = styled.div`
   padding: 20px;
 `;
 
-const ArticleLink = styled(Link)`
+const ArticleLink = styled(Link)<{ noImage?: boolean }>`
   position: relative;
   display: block;
-  width: 100%;
+  width: ${p => (p.noImage ? '488px' : '100%')};
   height: 100%;
   top: 0;
   left: 0;
@@ -360,6 +373,10 @@ const ArticleLink = styled(Link)`
   z-index: 1;
   transition: transform 0.33s var(--ease-out-quart);
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+
+  ${p => p.noImage && mediaqueries.desktop`
+    width: 100%;
+  `}
 
   &:hover ${Item}, &:focus ${Item} {
     transform: translateY(-2px);
