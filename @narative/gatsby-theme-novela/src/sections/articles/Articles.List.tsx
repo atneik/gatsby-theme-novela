@@ -383,12 +383,22 @@ const Item = styled.div<{ gridLayout: string; noImage?: boolean }>`
 const ImageContainer = styled.div<{ narrow: boolean; gridLayout: string }>`
   position: relative;
   height: ${p => (p.gridLayout === 'tiles' ? '280px' : '220px')};
-  margin-bottom: ${p => (p.gridLayout === 'tiles' ? '30px' : 0)};
+  margin-bottom: ${p => (p.gridLayout === 'tiles' ? '20px' : 0)};
+  overflow: hidden;
+  border-radius: 10px;
   transition: transform 0.3s var(--ease-out-quad),
-    box-shadow 0.3s var(--ease-out-quad);
+    box-shadow 0.3s var(--ease-out-quad),
+    border-radius 0.3s var(--ease-out-quad);
 
   & > div {
     height: 100%;
+  }
+
+  img,
+  picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   ${mediaqueries.tablet`
@@ -471,6 +481,10 @@ const MetaData = styled.div`
 
 const ContentWrapper = styled.div`
   padding: 20px;
+
+  ${mediaqueries.phablet`
+    padding: 10px;
+  `}
 `;
 
 const ArticleLink = styled(Link, {
@@ -497,6 +511,11 @@ const ArticleLink = styled(Link, {
       p.isDark
         ? '0 26px 60px -24px rgba(0, 0, 0, 0.85), 0 0 0 1px rgba(255, 255, 255, 0.12)'
         : '0 30px 80px -50px rgba(0, 0, 0, 0.27), 0 30px 50px -30px rgba(0, 0, 0, 0.3)'};
+  }
+
+  &:hover ${ImageContainer}, &:focus ${ImageContainer} {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
   }
 
   &[data-a11y='true']:focus::after {
