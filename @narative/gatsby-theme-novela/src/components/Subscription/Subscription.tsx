@@ -11,6 +11,8 @@ const Subscription: React.FC<{}> = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [subscribed, setSubscribed] = useState(false);
+  const emailInputId = "subscription-email";
+  const errorId = "subscription-email-error";
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -51,13 +53,17 @@ const Subscription: React.FC<{}> = () => {
             email with any third parties.
           </Text>
           <Form onSubmit={handleSubmit} hasError={error}>
+            <HiddenLabel htmlFor={emailInputId}>Email address</HiddenLabel>
             <Input
+              id={emailInputId}
               placeholder="your@email.com"
               name="email"
               type="email"
               value={email}
               onChange={handleEmailChange}
               hasError={error}
+              aria-invalid={Boolean(error)}
+              aria-describedby={error ? errorId : undefined}
             />
             <Button
               type="submit"
@@ -67,7 +73,13 @@ const Subscription: React.FC<{}> = () => {
             >
               {subscribed ? <CheckMarkIcon /> : "Subscribe"}
             </Button>
-            {error && <Error dangerouslySetInnerHTML={{ __html: error }} />}
+            {error && (
+              <Error
+                id={errorId}
+                role="alert"
+                dangerouslySetInnerHTML={{ __html: error }}
+              />
+            )}
           </Form>
         </Content>
       </SubscriptionContainer>
@@ -252,8 +264,22 @@ const Error = styled.div`
   `}
 `;
 
+const HiddenLabel = styled.label`
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+`;
+
 const CheckMarkIcon = () => (
   <svg
+    aria-hidden="true"
+    focusable="false"
     width="24"
     height="24"
     viewBox="0 0 24 24"

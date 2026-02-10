@@ -3,7 +3,7 @@ import React from "react";
 import { Icon } from '@types';
 
 const FacebookIcon: Icon = ({ fill = "white" }) => (
-  <svg
+  <svg aria-hidden="true" focusable="false"
     width="7"
     height="14"
     viewBox="0 0 7 14"

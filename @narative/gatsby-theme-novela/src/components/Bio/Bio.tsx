@@ -15,7 +15,7 @@ const Bio: React.FC<IAuthor> = ({ author }) => {
         aria-label="Author's bio"
       >
         <BioAvatarInner>
-          <RoundedImage src={author.avatar.medium} />
+          <RoundedImage src={author.avatar.medium} alt={`Avatar of ${author.name}`} />
         </BioAvatarInner>
       </BioAvatar>
       <BioText dangerouslySetInnerHTML={{ __html: author.bio }} />

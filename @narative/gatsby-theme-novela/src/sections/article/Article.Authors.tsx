@@ -37,13 +37,33 @@ const CoAuthors: React.FC<AuthorsProps> = ({ authors }) => {
 
   const fill = colorMode === "dark" ? "#fff" : "#000";
   const listWidth = { width: `${10 + authors.length * 15}px` };
+  const toggleOpen = () => setIsOpen(prev => !prev);
+  const close = () => setIsOpen(false);
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      toggleOpen();
+    }
+
+    if (event.key === "Escape") {
+      close();
+    }
+  };
 
   return (
-    <CoAuthorsContainer onClick={() => setIsOpen(!isOpen)} isOpen={isOpen}>
+    <CoAuthorsContainer
+      onClick={toggleOpen}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={0}
+      aria-expanded={isOpen}
+      aria-haspopup="listbox"
+      isOpen={isOpen}
+    >
       <CoAuthorsList style={listWidth}>
         {authors.map((author, index) => (
           <CoAuthorAvatar style={{ left: `${index * 15}px` }} key={author.name}>
-            <RoundedImage src={author.avatar.small} />
+            <RoundedImage src={author.avatar.small} alt={`Avatar of ${author.name}`} />
           </CoAuthorAvatar>
         ))}
       </CoAuthorsList>
@@ -53,8 +73,8 @@ const CoAuthors: React.FC<AuthorsProps> = ({ authors }) => {
       </IconContainer>
 
       {isOpen && (
-        <OutsideClickHandler onOutsideClick={() => setIsOpen(!isOpen)}>
-          <CoAuthorsListOpen>
+        <OutsideClickHandler onOutsideClick={close}>
+          <CoAuthorsListOpen role="listbox">
             <IconOpenContainer>
               <Icons.ToggleClose fill={fill} />
             </IconOpenContainer>
@@ -65,7 +85,7 @@ const CoAuthors: React.FC<AuthorsProps> = ({ authors }) => {
                   to={author.slug}
                 >
                   <CoAuthorAvatarOpen>
-                    <RoundedImage src={author.avatar.small} />
+                    <RoundedImage src={author.avatar.small} alt={`Avatar of ${author.name}`} />
                   </CoAuthorAvatarOpen>
                   <AuthorNameOpen>{author.name}</AuthorNameOpen>
                 </AuthorLink>
@@ -95,7 +115,7 @@ const ArticleAuthors: React.FC<AuthorsProps> = ({ authors }) => {
         to={authors[0].slug}
       >
         <AuthorAvatar>
-          <RoundedImage src={authors[0].avatar.small} />
+          <RoundedImage src={authors[0].avatar.small} alt={`Avatar of ${authors[0].name}`} />
         </AuthorAvatar>
         <strong>{authors[0].name}</strong>
         <HideOnMobile>,&nbsp;</HideOnMobile>

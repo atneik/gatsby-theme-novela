@@ -3,7 +3,7 @@ import React from "react";
 import { Icon } from '@types';
 
 const DigitalOceanIcon: Icon = ({ fill = "white" }) => (
-    <svg
+    <svg aria-hidden="true" focusable="false"
         width="14"
         height="14"
         viewBox="0 0 512 512"

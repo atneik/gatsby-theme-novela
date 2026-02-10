@@ -3,7 +3,7 @@ import React from "react";
 import { Icon } from '@types';
 
 const ExIcon: Icon = ({ fill = "#08080B" }) => (
-  <svg
+  <svg aria-hidden="true" focusable="false"
     width="24"
     height="25"
     viewBox="0 0 24 25"

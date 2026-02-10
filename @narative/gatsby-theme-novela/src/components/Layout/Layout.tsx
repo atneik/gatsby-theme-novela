@@ -25,8 +25,9 @@ const Layout: React.FC<{}> = ({ children }) => {
     <ArticlesContextProvider>
       <Container>
         <Global styles={globalStyles} />
+        <SkipToContent href="#main-content">Skip to content</SkipToContent>
         <NavigationHeader />
-        {children}
+        <MainContent id="main-content">{children}</MainContent>
         <NavigationFooter />
       </Container>
     </ArticlesContextProvider>
@@ -40,4 +41,23 @@ const Container = styled.div`
   background: ${p => p.theme.colors.background};
   transition: ${p => p.theme.colorModeTransition};
   min-height: 100vh;
+`;
+
+const MainContent = styled.main``;
+
+const SkipToContent = styled.a`
+  position: absolute;
+  left: 16px;
+  top: 8px;
+  z-index: 999;
+  padding: 8px 12px;
+  border-radius: 4px;
+  background: ${p => p.theme.colors.background};
+  color: ${p => p.theme.colors.primary};
+  transform: translateY(-150%);
+  transition: transform 0.2s var(--ease-in-out-quad);
+
+  &:focus {
+    transform: translateY(0);
+  }
 `;

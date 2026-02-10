@@ -3,7 +3,7 @@ import React from "react";
 import { Icon } from '@types';
 
 const TwitterIcon: Icon = ({ fill = "white", ...props }) => (
-  <svg
+  <svg aria-hidden="true" focusable="false"
     width="16"
     height="13"
     viewBox="0 0 16 13"

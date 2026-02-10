@@ -63,7 +63,12 @@ export const globalStyles = css`
     cursor: pointer;
   }
 
-  a:focus {
+  :focus-visible {
+    outline: 2px solid #6166dc;
+    outline-offset: 2px;
+  }
+
+  :focus:not(:focus-visible) {
     outline: none;
   }
 
@@ -111,7 +116,6 @@ export const globalStyles = css`
   button {
     appearance: none;
     border: none;
-    outline: none;
     background: transparent;
   }
 
@@ -129,11 +133,6 @@ export const globalStyles = css`
   }
 
   input {
-    &:focus,
-    &:active {
-      outline: none;
-    }
-
     &[type="number"] {
       width: auto;
     }

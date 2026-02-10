@@ -3,7 +3,7 @@ import React from "react";
 import { Icon } from '@types';
 
 const CopyIcon: Icon = ({ fill = "#08080B", ...props }) => (
-  <svg
+  <svg aria-hidden="true" focusable="false"
     width="15"
     height="19"
     viewBox="0 0 15 19"

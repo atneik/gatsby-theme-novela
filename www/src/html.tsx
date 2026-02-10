@@ -1,7 +1,7 @@
 import React from "react";
 
 export default props => (
-  <html {...props.htmlAttributes}>
+  <html lang={(props.htmlAttributes && props.htmlAttributes.lang) || "en"} {...props.htmlAttributes}>
     <head>
 
       <meta charSet="utf-8" />

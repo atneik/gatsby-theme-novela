@@ -3,7 +3,7 @@ import React from "react";
 import { Icon } from '@types';
 
 const ToggleOpen: Icon = ({ fill }) => (
-  <svg
+  <svg aria-hidden="true" focusable="false"
     width="17"
     height="17"
     viewBox="0 0 17 17"

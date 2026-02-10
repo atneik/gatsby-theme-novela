@@ -3,7 +3,7 @@ import React from "react";
 import { Icon } from '@types';
 
 const TilesIcon: Icon = ({ fill }) => (
-  <svg
+  <svg aria-hidden="true" focusable="false"
     width="26"
     height="26"
     viewBox="0 0 26 26"

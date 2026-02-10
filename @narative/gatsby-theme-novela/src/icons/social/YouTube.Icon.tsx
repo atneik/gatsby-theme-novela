@@ -3,7 +3,7 @@ import React from "react";
 import { Icon } from '@types';
 
 const YouTubeIcon: Icon = ({ fill = "white" }) => (
-  <svg
+  <svg aria-hidden="true" focusable="false"
     width="17"
     height="12"
     viewBox="0 0 17 12"

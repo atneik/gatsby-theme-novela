@@ -3,7 +3,7 @@ import React from "react";
 import { Icon } from '@types';
 
 const MediumIcon: Icon = ({ fill = "white" }) => (
-  <svg
+  <svg aria-hidden="true" focusable="false"
     width="13"
     height="11"
     viewBox="0 0 13 11"

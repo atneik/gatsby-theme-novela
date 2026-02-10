@@ -3,7 +3,7 @@ import React from "react";
 import { Icon } from '@types';
 
 const ChevronLeft: Icon = ({ fill }) => (
-  <svg
+  <svg aria-hidden="true" focusable="false"
     width="24"
     height="24"
     viewBox="0 0 24 24"

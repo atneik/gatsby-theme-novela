@@ -41,7 +41,6 @@ export default Progress;
 
 const ProgressContainer = styled.div`
   position: relative;
-  outline: none;
   user-select: none;
 `;
 

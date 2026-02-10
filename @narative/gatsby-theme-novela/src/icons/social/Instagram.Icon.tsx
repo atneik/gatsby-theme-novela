@@ -3,7 +3,7 @@ import React from "react";
 import { Icon } from '@types';
 
 const InstagramIcon: Icon = ({ fill = "white" }) => (
-  <svg
+  <svg aria-hidden="true" focusable="false"
     width="13"
     height="13"
     viewBox="0 0 13 13"

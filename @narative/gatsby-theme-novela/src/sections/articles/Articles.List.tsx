@@ -103,7 +103,7 @@ const ListItem: React.FC<ArticlesListItemProps> = ({ article, narrow }) => {
       <Item gridLayout={gridLayout} noImage={article.noImage}>
         {!article.noImage && (
           <ImageContainer narrow={narrow || false} gridLayout={gridLayout}>
-            {hasHeroImage ? <Image src={imageSource} /> : <ImagePlaceholder />}
+            {hasHeroImage ? <Image src={imageSource} alt={article.title} /> : <ImagePlaceholder />}
           </ImageContainer>
         )}
         <ContentWrapper>

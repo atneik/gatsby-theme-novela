@@ -3,7 +3,7 @@ import React from 'react';
 import { Icon } from '@types';
 
 const TripAdvisorIcon: Icon = ({ fill = 'white' }) => (
-  <svg
+  <svg aria-hidden="true" focusable="false"
     width="20"
     height="13"
     viewBox="0 0 20 13"
