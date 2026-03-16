@@ -1,0 +1,44 @@
+---
+title: OpenBnB
+author: Aniket Handa
+date: 2024-09-01
+category: Product
+tags:
+ - Chrome Extension
+ - MCP
+ - AI
+hero: ./openbnb.png
+excerpt: Building tools to reduce friction in short-term rental discovery — from a browser extension to an MCP server with 400+ stars.
+---
+
+Short-term rental platforms have consolidated discovery but fragmented trust. Guests pay 15–20% in service fees. Hosts lose margin and own no relationship with their guests. The problem isn't supply — it's the layer between.
+
+OpenBnB started as a question: what's the minimum viable surface to reconnect hosts and guests?
+
+## Chrome Extension
+
+The first answer was a browser extension. Rather than building a competing marketplace, the extension layers onto existing Airbnb browsing — detecting listings where hosts have a direct booking website and surfacing that link inline.
+
+The interaction model was intentionally low-friction: no account, no redirect, no onboarding. Highlight, click, go. The extension auto-checks listings in the background and visually marks which ones have a direct option available.
+
+Rated ★★★★★ on the Chrome Web Store.
+
+## MCP Server
+
+The second surface came from a different angle. As AI assistants became practical travel planning tools, the question shifted: how do you bring rental search into that context?
+
+The [mcp-server-airbnb](https://github.com/openbnb-org/mcp-server-airbnb) is an open-source Model Context Protocol server that lets AI agents query Airbnb listings directly — searching by location, dates, guest count, price range, and more, then retrieving full property details including amenities, house rules, and booking links.
+
+It picked up ~400 stars and ~100 forks organically, signaling real demand for rental data in agentic contexts.
+
+**Tools exposed:**
+- `airbnb_search` — location, dates, guests, price filters, pagination
+- `airbnb_listing_details` — amenities, coordinates, house rules, direct booking link
+
+Works with Claude Desktop, Cursor, and any MCP-compatible client via stdio.
+
+## MCP App (upcoming)
+
+The next layer is a native MCP app for ChatGPT and Claude — a guest-facing interface for finding rentals directly within AI conversations, without leaving the chat context. Rather than linking out to a search page, the app surfaces listings, filters, and direct booking options as a first-class part of the conversation.
+
+The through-line across all three surfaces: meet the user where they already are.
