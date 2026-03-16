@@ -46,12 +46,12 @@ module.exports.local = {
               }
             }
             regular: childImageSharp {
-              fluid(maxWidth: 653, quality: 100) {
+              fluid(maxWidth: 1400, quality: 100) {
                 ${GatsbyFluid_withWebp}
               }
             }
             narrow: childImageSharp {
-              fluid(maxWidth: 457, quality: 100) {
+              fluid(maxWidth: 960, quality: 100) {
                 ${GatsbyFluid_withWebp}
               }
             }
