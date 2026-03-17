@@ -35,7 +35,7 @@ const ArticleHero: React.FC<ArticleHeroProps> = ({ article, authors }) => {
         <HeroSubtitleContainer>
           <HeroSubtitle>
             <ArticleMeta><strong>Year</strong></ArticleMeta>
-            <ArticleMeta>{article.date}</ArticleMeta>
+            <ArticleMeta>{article.date}{article.present && ' - Present'}</ArticleMeta>
           </HeroSubtitle>
           <HeroSubtitle id="ArticleTags__Hero">
             <ArticleMeta><strong>Technology</strong></ArticleMeta>

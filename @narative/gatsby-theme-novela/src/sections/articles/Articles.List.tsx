@@ -194,7 +194,7 @@ const ListItem: React.FC<ArticlesListItemProps> = ({
             {article.excerpt}
           </Excerpt>
           <MetaData>
-            {article.date}
+            {article.date}{article.present && ' - Present'}
             {/* {article.date} · {article.timeToRead} min read */}
           </MetaData>
         </ContentWrapper>

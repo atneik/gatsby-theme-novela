@@ -38,6 +38,7 @@ module.exports.local = {
             link
           }
           category
+          present
           noImage
           hero {
             full: childImageSharp {

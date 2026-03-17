@@ -14,6 +14,7 @@ module.exports = ({ actions }) => {
       tags: [String]
       category: String
       noImage: Boolean
+      present: Boolean
     }
   `);
 };

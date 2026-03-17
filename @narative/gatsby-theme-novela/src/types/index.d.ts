@@ -53,6 +53,7 @@ export interface IArticle {
   date: string;
   dateForSEO?: string;
   noImage?: boolean;
+  present?: boolean;
   tags: string[];
 }
 

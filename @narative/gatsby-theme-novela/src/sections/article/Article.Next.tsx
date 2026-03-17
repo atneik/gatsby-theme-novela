@@ -70,7 +70,7 @@ const GridItem: React.FC<GridItemProps> = ({ article, narrow }) => {
           {article.tags.join(' / ')}
         </Excerpt>
         <MetaData>
-          {article.date}
+          {article.date}{article.present && ' - Present'}
           {/* {article.date} · {article.timeToRead} min read */}
         </MetaData>{" "}
       </Item>
