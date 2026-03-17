@@ -40,7 +40,9 @@ export default ({
     ) : (
       <ArrowAnimation color={color}>
         {text}
-        <ArrowRightIcon aria-hidden="true" fill={color} />
+        <ArrowIconWrapper color={color}>
+          <ArrowRightIcon aria-hidden="true" fill={color} />
+        </ArrowIconWrapper>
       </ArrowAnimation>
     )}
   </ArrowButton>
@@ -102,32 +104,29 @@ const animateButtonLine = keyframes`
   }
 `
 
-const fadeInOut = keyframes`
-  0% {
-      opacity: 0;
-      width: 0;
-  }
-  50% { opacity: 1; width: 40%}
-  60% { opacity: 1; width: 70%}
-  80% {
-    opacity: 0;
-    width: 50%;
-    left: 100%;
-  }
-`
 
 const ArrowAnimation = styled.div`
   position: relative;
   display: flex;
   align-items: center;
-  overflow-x: hidden;
-  padding: 0 3rem 0 0;
   height: 25px;
   font-size: 1.8rem;
 
-  ${media.tablet`
-    padding: 0rem 3rem 0 0rem;
-  `};
+  svg {
+    transition: all 300ms cubic-bezier(0.77, 0, 0.175, 1);
+  }
+
+  &:hover svg {
+    transform: translateX(3rem);
+  }
+`
+
+const ArrowIconWrapper = styled.span<{ color: string }>`
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  overflow-x: hidden;
+  padding-right: 3rem;
 
   &::after {
     content: '';
@@ -142,19 +141,7 @@ const ArrowAnimation = styled.div`
     z-index: 100;
   }
 
-  svg {
-    transition: all 300ms cubic-bezier(0.77, 0, 0.175, 1);
-  }
-
-  &:hover svg {
-    transform: translateX(3rem);
-  }
-
-  &:hover span::after {
-    animation: ${fadeInOut} 1s cubic-bezier(0.77, 0, 0.175, 1) forwards;
-  }
-
-  &:hover::after {
+  ${ArrowAnimation}:hover &::after {
     opacity: 1;
     animation: ${animateButtonLine} 1s cubic-bezier(0.77, 0, 0.175, 1) forwards;
 
