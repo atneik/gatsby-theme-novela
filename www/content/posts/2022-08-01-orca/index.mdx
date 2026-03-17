@@ -5,10 +5,113 @@ date: 2022-08-01
 category: Front-end Development
 tags:
  - React
+ - TypeScript
+ - Product Design & Strategy
 hero: ./orca.png
 excerpt: Helping remote workers live anywhere in the world
+links:
+ - label: "Website"
+   link: "https://www.orcapass.com"
 ---
 
-Visit [Orca] (https://orcapass.com/)
+# Orca
 
-The mid-term housing rental platform that helps remote workers live anywhere in the world. Scaled it to 35+ destinations and hundreds of "tenants" ($100k+ MRR).
+*A membership platform for remote workers to live anywhere in the world*
+
+## Overview
+
+| | |
+|---|---|
+| **Role** | Design, Engineering & Product |
+| **Co-founder** | Devan Sood (Product, Marketing, Sales, Operations) |
+| **Scale** | 35+ destinations, $100k+ MRR |
+
+I co-founded Orca and owned all product, design, and engineering. Devan ran marketing, sales, and operations. We both shaped product strategy together.
+
+## The Problem
+
+> How do you make it effortless for a remote worker to land in a new city — fully set up — in under 3 days?
+
+Mid-term housing (1–6 months) sits in an awkward gap. Too long for Airbnb pricing, too short for traditional leases. Remote workers were stitching together solutions manually across a dozen platforms with no consistency, no local support, and no trusted curation.
+
+## What We Built
+
+Orca was a membership platform bundling:
+
+- Furnished mid-term rentals at discounted rates
+- Travel insurance
+- City guides
+- On-the-ground local experts per destination
+
+The single KPI we optimized for: **member up and running in a new city within 3 days.**
+
+## Stack
+
+- **Gatsby** — static site generation for fast, SEO-friendly pages
+- **Contentful** — CMS for managing destination and listing content without deploys
+- **React + TypeScript** — frontend
+- **Microsoft Clarity** — session recording and telemetry
+
+## How We Sourced Supply
+
+Most platforms list everything. We did the opposite.
+
+1. Scraped Airbnb and other platforms to map supply in each city — pricing, occupancy, operator patterns
+2. Filtered down to the top 10% worth approaching
+3. Manually qualified and onboarded the top 1% — reliable operators with units remote workers actually wanted for a month-plus stay
+
+For many of those conversations, we showed up in person. Walking properties and sitting face-to-face with managers changed the dynamic entirely compared to cold outreach.
+
+## Rapid Iteration
+
+The biggest iterations weren't features — they were the business model itself.
+
+We cycled through multiple versions of what Orca was:
+
+- Pure subscription
+- Flat membership
+- Different bundle configurations
+- Different ways of packaging discounts and services
+
+Each version was a hypothesis. We'd ship, watch behavior in Clarity, talk to members, and revise.
+
+## Pivots That Mattered
+
+**Membership-optional**
+
+Early on, Orca was membership-only. Users who found value in individual bookings but didn't want a recurring commitment churned or didn't convert. We moved to membership-optional — keeping the bundle for users who wanted it, removing the barrier for everyone else. It widened the top of funnel meaningfully.
+
+**Bundle evolution**
+
+We started with housing. We learned users needed more: insurance, local guidance, someone to call when the WiFi was down. The bundle grew from what users told us was blocking them from actually booking a new destination.
+
+## Growth
+
+After experimenting with many channels — online communities, content, paid — what consistently worked was:
+
+- **Word of mouth** from members who had a great experience
+- **In-person outreach** to both property managers and remote work communities
+- **Referrals** from happy members who recommended Orca to colleagues planning their next destination
+
+**Orca Score** was our most creative growth hack: a Chrome extension that overlaid a personalized compatibility score on any Airbnb listing as you browsed. It analyzed the listing against your preferences — location, amenities, price — and gave you a score in real time. No signup required to install it. It put Orca in front of anyone actively searching for a place, exactly at the moment they needed it most.
+
+The insight behind Orca Score — that people were already searching Airbnb for mid-term stays but getting a poor experience — planted the seed for what came next.
+
+## What Came Next
+
+Orca Score surfaced a bigger opportunity: Airbnb had trained millions of travelers to search for stays, but the best hosts were paying 15–20% commission on every booking. We started exploring whether those hosts could own their guest relationships directly.
+
+That question became [OpenBnB](/2024-09-01-openbnb) — a platform for direct bookings between guests and top-rated hosts, cutting out the middleman entirely.
+
+## Impact
+
+- Scaled to 35+ destinations globally
+- $100k+ MRR
+- Hundreds of members across 35+ destinations
+
+## Takeaways
+
+- Owning design and engineering end-to-end compresses iteration cycles significantly
+- The most important pivots were business model, not product features
+- Showing up in person — to users and suppliers — surfaced things no dashboard could
+- Curation beats volume: fewer, better listings built more trust than a long tail of mediocre ones
